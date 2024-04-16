@@ -3,9 +3,10 @@ import numpy as np
 import pyautogui
 import autopy
 import time
+from threading import Thread
 
 def fast_click(x, y):
-    pyautogui.moveTo(x, y, 0)
+    pyautogui.moveTo(x, y)
     pyautogui.click()
 
 def slow_click(x, y):
@@ -14,26 +15,27 @@ def slow_click(x, y):
     time.sleep(0.1)
     pyautogui.mouseUp()
 
-def find_and_click(image, fast: bool = False):
+def find_and_click(image: str, fast: bool = False):
     click_method = None
     if fast:
         click_method = fast_click
     else:
-        slow_click
-    print('images/'+image+'.png')
-    x, y = pyautogui.locateCenterOnScreen('images/'+image+'.png', confidence=0.8)
-    click_method
+        click_method = slow_click
+    image_to_find = 'images/'+image+'.png'
+    x, y = pyautogui.locateCenterOnScreen(image_to_find, confidence=0.8)
+    click_method(x, y)
     
 if __name__ == '__main__':
-    #autopy.alert.alert("Waiting...")
-    bs_x, bs_y = pyautogui.locateCenterOnScreen('images/open_bluestacks.png', confidence=0.8)
-    pyautogui.moveTo(bs_x, bs_y, 0.4)
-    pyautogui.mouseDown()
-    time.sleep(0.2)
-    pyautogui.mouseUp()    
+    # t = Thread(target=find_and_click, args=('open_bluestacks',))
+    # t.start()
+    # t2 = Thread(target=find_and_click, args=('to_battle', True))
+    # t2.start()
+    find_and_click("open_bluestacks")
+    time.sleep(1)
+    find_and_click('to_battle', True)
+    time.sleep(3)
 
-    bt_x, bt_y = pyautogui.locateCenterOnScreen('images/to_battle.png', confidence=0.8)
-    pyautogui.moveTo(bt_x, bt_y, 1)
-    pyautogui.mouseDown()
-    time.sleep(0.2)
-    pyautogui.mouseUp()
+    #Use threading for spamming abilities
+    #Make this look only on the players half of the screen
+    while True:
+        find_and_click("activate", True)
