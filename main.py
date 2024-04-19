@@ -10,25 +10,25 @@ from utility import *
 device = 'laptop'
 #device = 'pc'
 
-def run_game():
-    global game_status
-    # TODO: Use threading instead of sleep
-    # TODO: Global variable to store in-game/in-menu status
+# Enter into a battle
+def enter_game():
     logger.info('Entering battle...')
     find_and_click('to_battle')
     time.sleep(0.2)
     pyautogui.press('esc')
 
-    # TODO: Kill status inside loop, global variable?
-    # TODO: When spamming activations if none are currently found but in-game status is true keep polling, currently dies when cant find any activations
+# Spam abilities whilst in game
+def run_game():
+    global game_status
+    
+    enter_game()
     while game_status == 1:
         try:
             find_and_click("activate", user_side=True)
             logger.info('ACTIVATE!!!')
         except pyautogui.ImageNotFoundException as e:
-            logger.exception("No activations found. Exiting game.")
-            # TODO: Don't exit, wait and retry. Also figure out what to do when no longer in game
-            sys.exit()
+            time.sleep(1)
+            logger.info('Waiting for refresh')
 
 def check_game_status():
     global game_status
