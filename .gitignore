@@ -1,2 +1,3 @@
 venv/
 gc_bot.log
+__pycache__/
