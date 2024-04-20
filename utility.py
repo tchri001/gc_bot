@@ -1,5 +1,7 @@
+import sys, os
 import time
 import pyautogui
+import keyboard
 from main import device
 
 # Locate and click a passed in image
@@ -42,3 +44,11 @@ def screenies():
         time.sleep(.01) # Wait 10ms
         if time.time()-t>=3: # Take screenshots for 3 seconds total
             break
+
+# Monitor function to kill program is 'q' pressed
+def user_exit(logger):
+    while True:
+        if keyboard.is_pressed('q'):
+            logger.info('EXITING PROGRAM')
+            # TODO: Bit of a violent ending but haven't found another way to end the main thread yet, maybe thread.interrupt_main() or something
+            os._exit(1)        
