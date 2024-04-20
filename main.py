@@ -14,6 +14,7 @@ device = 'pc'
 def enter_game():
     logger.info('Entering battle...')
     find_and_click('to_battle')
+    #battles_played += 1 #For some reason this stops the script
     time.sleep(0.2)
     pyautogui.press('esc')
 
@@ -25,6 +26,7 @@ def play_battle():
         try:
             find_and_click("activate", user_side=True)
             logger.info('ACTIVATE!!!')
+            #activations += 1 #For some reason this stops the script
         except pyautogui.ImageNotFoundException as e:
             time.sleep(1)
             logger.info('Waiting for refresh')
@@ -44,6 +46,11 @@ def game_status_actions():
             time.sleep(1)
 
 if __name__ == '__main__':
+    # Setup tracking variables
+    game_status = 0
+    activations = 0
+    battles_played = 0
+
     # Configure and create logger
     logging.basicConfig(filename="gc_bot.log", format='%(asctime)s %(message)s', filemode='w', level=logging.INFO)
     logger = logging.getLogger()
@@ -51,9 +58,6 @@ if __name__ == '__main__':
     # Start up exit on input thread
     exit_program = threading.Thread(target=user_exit, args=(logger,))
     exit_program.start()
-
-    # Global variable for in-game status where 0 = home screen and 1 = in-game
-    game_status = 0
     
     # Setup threads, game status keeps the var updated and gameplay does the actual interaction
     play_game = threading.Thread(target=game_status_actions, args=())

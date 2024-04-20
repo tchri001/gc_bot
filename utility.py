@@ -3,6 +3,7 @@ import time
 import pyautogui
 import keyboard
 from main import device
+#from main import activations, battles_played #This doesn't work, need to setup OOP to initialise gameplay object/class with tracking vars
 
 # Locate and click a passed in image
 def find_and_click(image, user_side = False, x_inc=1, y_inc=10, x_mult=1, y_mult=1, confidence=0.8):
@@ -51,4 +52,5 @@ def user_exit(logger):
         if keyboard.is_pressed('q'):
             logger.info('EXITING PROGRAM')
             # TODO: Bit of a violent ending but haven't found another way to end the main thread yet, maybe thread.interrupt_main() or something
+            #logger.info(f'Games stats\nActivations: {activations}\nBattles played: {battles_played}')
             os._exit(1)        
