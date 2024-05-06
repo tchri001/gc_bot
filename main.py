@@ -31,7 +31,6 @@ class GameBot:
         while game_status == 1:
             try:
                 utils.find_and_click("activate", user_side=True)
-                logger.info('ACTIVATE!!!')
                 #activations += 1 #For some reason this stops the script
             except pyautogui.ImageNotFoundException as e:
                 time.sleep(1)
@@ -60,7 +59,7 @@ if __name__ == '__main__':
     logging.basicConfig(filename="gc_bot.log", format='%(asctime)s %(message)s', filemode='w', level=logging.INFO)
     logger = logging.getLogger()
 
-    utils = Utilities(logger)
+    utils = Utilities(device, logger)
     bot = GameBot(device, utils, logger)
 
     # Start up exit on input thread
