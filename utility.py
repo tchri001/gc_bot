@@ -9,6 +9,25 @@ class Utilities:
         self.device = device
         self.logger = logger
 
+    def find_image(self, image, region=None, confidence=0.8):
+        image_path = 'images/'+self.device+'/'+image+'.png'
+
+        if region:
+            x,y = pyautogui.locateCenterOnScreen(image_path, region, confidence)
+        else:
+            x,y = pyautogui.locateCenterOnScreen(image_path, confidence)
+        
+        return x,y
+    
+    def mouse_click(self, x, y):
+        pyautogui.moveTo(x, y)
+        pyautogui.mouseDown()
+        pyautogui.mouseUp()
+
+#####----- REFACTORING ABOVE -----#####
+
+
+
     # Locate and click a passed in image
     def find_and_click(self, image, user_side = False, x_inc=1, y_inc=10, x_mult=1, y_mult=1, confidence=0.9):
         # Name of image on screen to find

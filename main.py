@@ -28,30 +28,35 @@ class GameBot:
     def play_battle(self):
         global game_status
 
-        while game_status == 1:
-            try:
-                utils.find_and_click("activate", user_side=True)
-                #activations += 1 #For some reason this stops the script
-            except pyautogui.ImageNotFoundException as e:
-                time.sleep(1)
-                logger.info('Waiting for refresh')
-
-    def game_status_actions(self):
+        while True:
+            if game_status == 0:
+                logger.info('Entering battle')
+                self.enter_game()
+            else:
+                try:
+                    x,y = utils.find_image("activate", region=(410, 250, 540, 480))
+                    utils.mouse_click(x,y)
+                except pyautogui.ImageNotFoundException as e:
+                    time.sleep(0.5)
+                    logger.info('Waiting for refresh')
+    
+    def status(self):
         global game_status
+        game_status = 0
+
         while True:
             try:
-                pyautogui.locateOnScreen(f'images/'+device+'/settings.png')
-                game_status = 0
+                utils.find_image('settings', region=(320, 840, 130, 130))
                 logger.info('Settings found, status = home screen')
-                self.enter_game()
-            except pyautogui.ImageNotFoundException: 
-                game_status = 1
+                game_status = 0
+                time.sleep(0.5)
+            except pyautogui.ImageNotFoundException:
                 logger.info('Settings not found, status = in game')
-                self.play_battle() #TODO: I don't think this should be here, maybe multithread it?
-                time.sleep(0.2)
+                game_status = 1
+                time.sleep(0.5)
+                
 
 if __name__ == '__main__':
-    # Icons don't work across device so change this as needed
     #device = 'laptop'
     device = 'pc'
 
@@ -65,14 +70,18 @@ if __name__ == '__main__':
     # Start up exit on input thread
     exit_program = threading.Thread(target=utils.user_exit, args=(logger,))
     exit_program.start()
-    
+
+    #Status tracker
+    status_poller = threading.Thread(target=bot.status, args=())
+    status_poller.start()
+
     # Setup threads, game status keeps the var updated and gameplay does the actual interaction
     play_game = threading.Thread(target=bot.game_status_actions, args=())
 
     #####----- GAMEPLAY STARTS HERE -----#####
     # TODO: Check this out for window handling instead of relying on game icon: https://stackoverflow.com/questions/43785927/python-pyautogui-window-handle
-    logger.info('Opening Emulator taskbar icon')
-    utils.find_and_click("open_bluestacks")
+    x, y = utils.find_image('open_bluestacks')
+    pyautogui.click(x, y)
     time.sleep(0.5)
 
     # Start both threads to kick off playing
