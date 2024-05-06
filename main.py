@@ -19,7 +19,7 @@ class GameBot:
     # Enter into a battle
     def enter_game(self):
         logger.info('Entering battle...')
-        utils.find_and_click('to_battle')
+        utils.click_image('to_battle', region=(1670, 780, 200, 200))
         #battles_played += 1 #For some reason this stops the script
         time.sleep(0.2)
         pyautogui.press('esc')
@@ -34,8 +34,7 @@ class GameBot:
                 self.enter_game()
             else:
                 try:
-                    x,y = utils.find_image("activate", region=(410, 250, 540, 480))
-                    utils.mouse_click(x,y)
+                    utils.click_image("activate", region=(410, 250, 540, 480))
                 except pyautogui.ImageNotFoundException as e:
                     time.sleep(0.5)
                     logger.info('Waiting for refresh')
@@ -54,7 +53,7 @@ class GameBot:
                 logger.info('Settings not found, status = in game')
                 game_status = 1
                 time.sleep(0.5)
-                
+
 
 if __name__ == '__main__':
     #device = 'laptop'

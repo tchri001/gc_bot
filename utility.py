@@ -9,6 +9,10 @@ class Utilities:
         self.device = device
         self.logger = logger
 
+    def click_image(self, image, region=None, confidence=0.8):
+        x,y = self.find_image(image, region, confidence)
+        self.mouse_click(x,y)
+
     def find_image(self, image, region=None, confidence=0.8):
         image_path = 'images/'+self.device+'/'+image+'.png'
 
