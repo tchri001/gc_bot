@@ -48,7 +48,7 @@ class GameBot:
                 game_status = 1
                 logger.info('Settings not found, status = in game')
                 self.play_battle() #TODO: I don't think this should be here, maybe multithread it?
-                time.sleep(1)
+                time.sleep(0.2)
 
 if __name__ == '__main__':
     # Icons don't work across device so change this as needed
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     # Setup threads, game status keeps the var updated and gameplay does the actual interaction
     play_game = threading.Thread(target=bot.game_status_actions, args=())
 
-    # Open up the game then start 
+    #####----- GAMEPLAY STARTS HERE -----#####
     # TODO: Check this out for window handling instead of relying on game icon: https://stackoverflow.com/questions/43785927/python-pyautogui-window-handle
     logger.info('Opening Emulator taskbar icon')
     utils.find_and_click("open_bluestacks")

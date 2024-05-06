@@ -37,5 +37,3 @@ if __name__ == '__main__':
 
     with Listener(on_click=on_click) as listener:
         listener.join()
-
-

@@ -18,10 +18,11 @@ class Utilities:
         x_raw, y_raw = self.locate_image(image_to_find, user_side, confidence)
 
         # Offset coordinates a little for hitbox
-        x_offset = x_raw + x_inc * x_mult
-        y_offset = y_raw + y_inc * y_mult
-        self.logger.info(f'Clicking at: {x_raw} and {y_raw}')
-        self.click(x_raw, y_raw)
+        x_offset = x_raw + (x_inc * x_mult)
+        y_offset = y_raw + (y_inc * y_mult)
+        self.logger.info(f'Clicking at: {x_offset} and {y_offset}')
+        # Maybe check for activation colour at raw x,y (84, 188, 255), if not present return
+        self.click(x_offset, y_offset)
 
     # Gets the x, y coordinates of whatever image is passed in
     def locate_image(self, image, side, conf):
