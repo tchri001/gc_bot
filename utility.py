@@ -13,13 +13,13 @@ class Utilities:
         x,y = self.find_image(image, region, confidence)
         self.mouse_click(x,y)
 
-    def find_image(self, image, region=None, confidence=0.8):
+    def find_image(self, image, reg=None, conf=0.8):
         image_path = 'images/'+self.device+'/'+image+'.png'
 
-        if region:
-            x,y = pyautogui.locateCenterOnScreen(image_path, region, confidence)
+        if reg:
+            x,y = pyautogui.locateCenterOnScreen(image_path, confidence=conf, region=reg)
         else:
-            x,y = pyautogui.locateCenterOnScreen(image_path, confidence)
+            x,y = pyautogui.locateCenterOnScreen(image_path, confidence=conf)
         
         return x,y
     

@@ -45,7 +45,7 @@ class GameBot:
 
         while True:
             try:
-                utils.find_image('settings', region=(320, 840, 130, 130))
+                utils.find_image('settings', reg=(320, 840, 130, 130))
                 logger.info('Settings found, status = home screen')
                 game_status = 0
                 time.sleep(0.5)
