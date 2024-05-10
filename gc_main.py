@@ -18,8 +18,12 @@ if __name__ == '__main__':
     exit_program.start()
 
     #Thread to check for gift popup and kill script when found, requires a fix
-    gift_popup = threading.Thread(target=bot.gift_popup, args=())
+    gift_popup = threading.Thread(target=utils.gift_popup, args=())
     gift_popup.start()
+
+    #Thread to check for and open cash reward chests
+    cash_chest = threading.Thread(target=utils.cash_chest, args=())
+    cash_chest.start()
 
     #Thread to update game status to allow correct behaviour
     status_poller = threading.Thread(target=bot.game_status, args=())

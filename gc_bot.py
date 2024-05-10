@@ -1,3 +1,4 @@
+import os
 import pyautogui
 import time
 import random
@@ -82,22 +83,3 @@ class Bot:
             else:
                 self.logger.debug('Activating abilities')
                 self.activate_abilities()
-
-    #Check for the gift pop-up and kill script if found
-    def gift_popup(self):
-        while True:
-            try:
-                self.utils.find_image('gift', region=(580, 120, 400, 160))
-                self.logger.debug('Gift pop-up found. Killing script')
-            except pyautogui.ImageNotFoundException:
-                time.sleep(5)
-
-    #Check for the cash chest and open it
-    def cash_chest(self):
-        while True:
-            try:
-                self.utils.click_image('cash_chest', region=(700, 700, 1000, 300))
-                self.logger.debug('Gained a cash chest')
-                self.utils.cash_chests += 1
-            except pyautogui.ImageNotFoundException:
-                time.sleep(5)
