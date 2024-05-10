@@ -91,3 +91,13 @@ class Bot:
                 self.logger.debug('Gift pop-up found. Killing script')
             except pyautogui.ImageNotFoundException:
                 time.sleep(5)
+
+    #Check for the cash chest and open it
+    def cash_chest(self):
+        while True:
+            try:
+                self.utils.click_image('cash_chest', region=(700, 700, 1000, 300))
+                self.logger.debug('Gained a cash chest')
+                self.utils.cash_chests += 1
+            except pyautogui.ImageNotFoundException:
+                time.sleep(5)
