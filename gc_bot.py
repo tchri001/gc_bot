@@ -35,6 +35,7 @@ class Bot:
                 time.sleep(random.uniform(0.2, 0.5))
                 pyautogui.press('esc')
                 game_status = 1
+                self.utils.games_played += 1
             except pyautogui.ImageNotFoundException:
                 self.logger.debug("Couldn't enter new battle")
                 self.close_menus()
@@ -62,13 +63,13 @@ class Bot:
                 prev_status = game_status
                 game_status = 0
                 if prev_status != game_status:
-                    self.logger.debug(f'Game status changed to in-game')
+                    self.logger.debug(f'Game status changed to home screen')
                 time.sleep(0.2)
             except pyautogui.ImageNotFoundException:
                 prev_status = game_status
                 game_status = 1
                 if prev_status != game_status:
-                    self.logger.debug(f'Game status changed to home screen')
+                    self.logger.debug(f'Game status changed to in-game')
                 time.sleep(0.2)
         
     #Core loop. Enter game or spam abilities

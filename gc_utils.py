@@ -6,6 +6,7 @@ class Utils:
     def __init__(self, device, logger):
         self.device = device
         self.logger = logger
+        self.games_played = 0
 
     #Find an image with optional screen region constraint
     def find_image(self, image, confidence=0.8, region=None):
@@ -35,5 +36,5 @@ class Utils:
     def exit_program(self):
         while True:
             if keyboard.is_pressed('q'):
-                self.logger.debug('EXITING PROGRAM')
+                self.logger.debug(f'EXITING PROGRAM. Games played: {self.games_played}')
                 os._exit(1)
