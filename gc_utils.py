@@ -12,9 +12,9 @@ class Utils:
         image_path = 'images/'+self.device+'/'+image+'.png'
 
         if region is None:
-            x,y = pyautogui.locateCenterOnScreen(image_path, confidence=confidence)
+            x,y = pyautogui.locateCenterOnScreen(image=image_path, confidence=confidence)
         else:
-            x,y = pyautogui.locateCenterOnScreen(image_path, confidence=confidence, region=region)
+            x,y = pyautogui.locateCenterOnScreen(image=image_path, confidence=confidence, region=region)
         
         return x,y
     
@@ -28,7 +28,9 @@ class Utils:
     #Chain find and click together
     def click_image(self, image, region=None, confidence=0.8):
         x,y = self.find_image(image, confidence, region)
-        self.mouse_click(x,y)
+        pyautogui.click(x,y+10)
+        self.logger.debug(f'Clicking: {x}, {y}')
+        #self.mouse_click(x,y)
 
     #Polling function to exit program on 'q' key press
     def exit_program(self):

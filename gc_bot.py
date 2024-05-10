@@ -12,17 +12,18 @@ class Bot:
 
     #Enter battle
     def to_battle(self):
+        global game_status
         self.logger.debug('Entering new battle')
         self.utils.click_image('to_battle', region=(1670, 780, 200, 200))
+        self.game_status = 1
         time.sleep(random.uniform(0.2, 0.5))
         pyautogui.press('esc')
 
     #Spam abilities at slightly randomised intervals
     def activate_abilities(self):
-        self.logger.debug('Spamming abilities')
         while True:
             try:
-                self.utils.click_image('activate', region=(410, 250, 540, 480))
+                self.utils.click_image('activate', region=(400, 220, 600, 600))
                 self.logger.debug('Activating ability')
             except pyautogui.ImageNotFoundException:
                 self.logger.debug('Waiting for refresh')
