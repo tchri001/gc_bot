@@ -29,7 +29,6 @@ class Utils:
     def click_image(self, image, region=None, confidence=0.8):
         x,y = self.find_image(image, confidence, region)
         pyautogui.click(x,y+10)
-        self.logger.debug(f'Clicking: {x}, {y}')
         #self.mouse_click(x,y)
 
     #Polling function to exit program on 'q' key press

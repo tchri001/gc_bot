@@ -19,6 +19,7 @@ if __name__ == '__main__':
     status_poller = threading.Thread(target=bot.game_status, args=())
     status_poller.start()
 
+    logger.debug('Opening bluestacks')
     utils.click_image('open_bluestacks')
     time.sleep(0.5)
 
