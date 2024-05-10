@@ -1,4 +1,5 @@
 to_battle_region=(1670, 780, 200, 200)
 activation_region=(400, 220, 600, 600)
 setting_region=(320, 840, 130, 130)
+gift_region=(580, 120, 400, 160)
 image_path=images/pc/

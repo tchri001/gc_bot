@@ -43,7 +43,7 @@ class Bot:
     #Spam abilities at slightly randomised intervals
     def activate_abilities(self):
         global game_status
-        self.logger.debug('Activating abilities')
+        
         while game_status == 1:
             try:
                 self.utils.click_image('activate', region=(400, 220, 600, 600))
@@ -62,13 +62,13 @@ class Bot:
                 prev_status = game_status
                 game_status = 0
                 if prev_status != game_status:
-                    self.logger.debug(f'Game status changed from {prev_status} to {game_status}')
+                    self.logger.debug(f'Game status changed to in-game')
                 time.sleep(0.2)
             except pyautogui.ImageNotFoundException:
                 prev_status = game_status
                 game_status = 1
                 if prev_status != game_status:
-                    self.logger.debug(f'Game status changed from {prev_status} to {game_status}')
+                    self.logger.debug(f'Game status changed to home screen')
                 time.sleep(0.2)
         
     #Core loop. Enter game or spam abilities
@@ -81,3 +81,12 @@ class Bot:
             else:
                 self.logger.debug('Activating abilities')
                 self.activate_abilities()
+
+    #Check for the gift pop-up and kill script if found
+    def gift_popup(self):
+        while True:
+            try:
+                self.utils.find_image('gift', region=(580, 120, 400, 160))
+                self.logger.debug('Gift pop-up found. Killing script')
+            except pyautogui.ImageNotFoundException:
+                time.sleep(5)
