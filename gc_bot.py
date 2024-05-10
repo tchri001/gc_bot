@@ -11,6 +11,20 @@ class Bot:
         self.utils = utils
         self.logger = logger
 
+    #Close any menus to return to home screen
+    def close_menus(self):
+        home_screen = 0
+
+        while home_screen == 0:
+            try:
+                self.utils.find_image('to_battle', region=(1670, 780, 200, 200))
+                self.logger.debug('Home screen is open')
+                home_screen = 1
+            except pyautogui.ImageNotFoundException:
+                self.logger.debug('Sub-menu open, closing it')
+                pyautogui.press('esc')
+                continue
+
     #Enter battle
     def to_battle(self):
         global game_status
@@ -23,6 +37,7 @@ class Bot:
                 game_status = 1
             except pyautogui.ImageNotFoundException:
                 self.logger.debug("Couldn't enter new battle")
+                self.close_menus()
                 continue
 
     #Spam abilities at slightly randomised intervals
